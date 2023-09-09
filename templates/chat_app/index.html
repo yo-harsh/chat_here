@@ -1,0 +1,54 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'chat_app/style.css' %}">
+    <title>ChatBot</title>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-log" id="chat-log">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id="send-button" >Send</button> 
+        </div>
+    </div>
+    <script src="{% static 'chat_app/script.js' %}"></script>
+</body>
+</html>
+
+
+
+
+
+<!-- // function sendUserMessageToServer(message) {
+    //     console.log(message);
+    //     fetch("http://localhost:8000/send_message/", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "X-CSRFToken": getCookie("csrftoken")
+    //         },
+    //         body: JSON.stringify({
+    //             "message": message
+    //         })
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log(data);
+    //         console.log('hhhhh');
+    //         console.log(data.response);
+    //         displayMessage('bot' , data.response);
+    //         // Handle the response from the server if needed
+    //         // For example, you can display the bot's response
+    //     })
+    //     .catch(error => {
+    //         console.error("Error:", error);
+    //     });
+    // } -->
