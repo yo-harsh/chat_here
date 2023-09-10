@@ -50,7 +50,7 @@ def memorydb(vectordb):
 
 # View for rendering the HTML page
 def render_index(request):
-    return render(request, 'csv_app/index.html')  # Render the HTML template
+    return render(request, 'pdf_app/index.html')  # Render the HTML template
 
 # View for uploading a PDF file
 @csrf_exempt
