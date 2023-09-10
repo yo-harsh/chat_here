@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Chat Bot</title>
+    <link rel="stylesheet" href="{% static 'csv_app/styles.css' %}">
+</head>
+<body>
+    <h1>PDF Chat Bot</h1>
+    
+    <!-- File Upload Form -->
+    <form id="fileUploadForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" id="fileInput" accept=".pdf" required>
+        <button type="submit">Upload PDF</button>
+    </form>
+    
+    <!-- Chat Interface -->
+    <div id="chatContainer">
+        <div id="chatMessages"></div>
+        <input type="text" id="messageInput" placeholder="Ask a question...">
+        <button id="sendMessage">Send</button>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{% static 'csv_app/app.js' %}"></script>
+</body>
+</html>
