@@ -1,6 +1,7 @@
 from django.apps import AppConfig
 
 
-class PdfAppConfig(AppConfig):
+class CsvAppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'pdf_app'
+    name = 'csv_app'
+    verbose_name = 'Custom CSV App'

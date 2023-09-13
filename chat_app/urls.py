@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='main'),
-    path('pdf/', views.pdf, name='pdf'),
+    path('bot/', views.bot, name='bot'),
     path('message/', views.api_message, name='chat_api')
     
 ]

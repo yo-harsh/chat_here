@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 import json
 from django.http import JsonResponse, HttpResponseBadRequest
 from PyPDF2 import PdfReader
@@ -11,10 +12,9 @@ from langchain.chains import ConversationalRetrievalChain
 from django.views.decorators.csrf import csrf_exempt
 import threading  # Import threading to ensure thread-safety
 from dotenv import load_dotenv
-
-# Global variable to store the vector database temporarily
-global_vector_db = None
-vector_db_lock = threading.Lock()  # Lock for thread-safety
+from .models import PdfFiles
+import os
+from django.conf import settings
 
 # Function to get text from a PDF file
 def get_pdf_text(pdf_docs):
@@ -28,7 +28,7 @@ def get_pdf_text(pdf_docs):
 def get_text_chunks(text):
     text_splitter = CharacterTextSplitter(
         separator="\n",
-        chunk_size=1000,
+        chunk_size=1100,
         chunk_overlap=200,
         length_function=len
     )
@@ -52,20 +52,48 @@ def memorydb(vectordb):
 def render_index(request):
     return render(request, 'pdf_app/index.html')  # Render the HTML template
 
+
+# Define global variables for vector database and conversation chain
+global_vector_db = None
+global_convo_chain = None
+vector_db_lock = threading.Lock()  # Lock for thread-safety
 # View for uploading a PDF file
+
+file_list = []
+
 @csrf_exempt
 def upload_pdf(request):
+    global global_vector_db, global_convo_chain
     if request.method == 'POST':
-        file_data = request.FILES.get('file')  # Access the uploaded file
-        if file_data:
+        obj = request.FILES['file']
+        if obj:
             try:
-                global global_vector_db  # Access the global vector database variable
+                load_dotenv()
+                doc = PdfFiles.objects.create(file=obj)
+                doc.save()
+                print('saved')
+                file_list.append(doc.file.name)
+                print('start')
+
+                # Update the global variables when a new PDF is uploaded
+                pdf_path = os.path.join(settings.MEDIA_ROOT, file_list[0])
+                raw_text = get_pdf_text(pdf_path)
+                print(0)
+                chunks = get_text_chunks(raw_text)
+                print(1)
+                vector = get_vectordb(chunks)
+                print(2)
+                convo = memorydb(vector)
+                print(3)
+
+                # Lock the global variables while updating
                 with vector_db_lock:
-                    load_dotenv()
-                    raw_text = get_pdf_text(file_data)
-                    chunks = get_text_chunks(raw_text)
-                    global_vector_db = get_vectordb(chunks)  # Store the vector database
-                return JsonResponse({'message': 'PDF uploaded successfully'})
+                    global_vector_db = vector
+                    global_convo_chain = convo
+    
+            
+        
+                return JsonResponse({'message': 'CSV11 uploaded successfully'})
             except Exception as e:
                 return JsonResponse({'error': str(e)}, status=400)
         else:
@@ -74,6 +102,8 @@ def upload_pdf(request):
         return HttpResponseBadRequest("Invalid request method")
 
 # View for chatting with the bot
+
+
 @csrf_exempt
 def chat_with_bot(request):
     if request.method == 'POST':
@@ -81,11 +111,21 @@ def chat_with_bot(request):
         msg = msg_data.get('message')
         
         if msg:
-            load_dotenv()
             try:
+                load_dotenv()
+
+                
+
+                # Check if a PDF has been uploaded
                 with vector_db_lock:
-                    convo = memorydb(global_vector_db)  # Use the stored vector database
-                output = convo.run(msg)
+                    vector_db = global_vector_db
+                    convo_chain = global_convo_chain
+
+                if not vector_db or not convo_chain:
+                    return JsonResponse({'error': 'No PDF file uploaded'}, status=400)
+
+                # Use the stored vector database and conversation chain for chat
+                output = convo_chain.run(msg)
                 return JsonResponse({'output': output})
             except Exception as e:
                 return JsonResponse({'error': str(e)}, status=400)

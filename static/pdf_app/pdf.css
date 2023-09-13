@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #333;
+}
+
+#fileUploadForm {
+    margin: 20px auto;
+    max-width: 300px;
+}
+
+#fileInput {
+    width: 100%;
+}
+
+#chatContainer {
+    max-width: 600px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+#chatMessages {
+    height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+#messageInput {
+    width: 70%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#sendMessage {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}

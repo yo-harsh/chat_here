@@ -5,16 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <title>PDF Chat Bot</title>
-    <link rel="stylesheet" href="{% static 'pdf_app/pdf.css' %}">
+    <link rel="stylesheet" href="{% static 'csv_app/csv.css' %}">
 </head>
 <body>
-    <h1>PDF Chat Bot</h1>
+    <h1>CSV Chat Bot</h1>
     
     <!-- File Upload Form -->
-    <form id="fileUploadForm" method="POST" enctype="multipart/form-data">
+    <form id="fileUploadForm" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" id="fileInput" name="file" accept=".pdf" required>
-        <button type="submit">Upload PDF</button>
+        <input type="file" id="fileInput" name="file" accept=".csv" required>
+        <button type="submit">Upload CSV</button>
     </form>
     
     <!-- Chat Interface -->
@@ -25,6 +25,6 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="{% static 'pdf_app/pdf.js' %}"></script>
+    <script src="{% static 'csv_app/csv.js' %}"></script>
 </body>
 </html>

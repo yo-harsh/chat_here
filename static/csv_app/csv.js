@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("file", fileInput.files[0]);
 
         // Send the PDF file to the server
-        fetch("http://localhost:8000/upload_pdf/", { // Update the URL as needed
+        fetch("http://localhost:8000/upload_csv/", { // Update the URL as needed
             method: "POST",
             body: formData,
             headers: {
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((response) => response.json())
             .then((data) => {
                 // Display the response from the server in the chat
-                chatMessages.innerHTML += `<div><strong>User:</strong> Uploaded PDF</div>`;
+                chatMessages.innerHTML += `<div><strong>User:</strong> Uploaded CSV successfully</div>`;
             })
             .catch((error) => {
                 console.error("Error uploading PDF:", error);
@@ -34,8 +34,10 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        console.log(message)
+
         // Send the user's message to the server
-        fetch("http://localhost:8000/chat_with_bot/", { // Update the URL as needed
+        fetch("http://localhost:8000/csv_agent/", { // Update the URL as needed
             method: "POST",
             body: JSON.stringify({ message }),
             headers: {
