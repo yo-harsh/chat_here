@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 def home(request):
     return render(request, 'chat_app/home.html', {'content':'yo'})
 
+@csrf_exempt
 def bot(request):
     #here
     return render(request, 'chat_app/index.html')

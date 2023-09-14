@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const sendButton = document.getElementById("send-button");
 
     sendButton.addEventListener("click", function() {
-        const userMessage = userInput.value;
+        var userMessage = userInput.value;
         if (userMessage.trim() !== "") {
             displayMessage("You", userMessage);
 
@@ -17,6 +17,30 @@ document.addEventListener("DOMContentLoaded", function() {
                 sendUserMessageToServer(userMessage);
             }
         });
+
+                // Example POST method implementation:
+        // async function postData(url = "http://localhost:8000/bot/", data = {"messagee": message}) { 
+        //     const response = await fetch(url, {
+        //     method: "POST", headers: {
+        //         "Content-Type": "application/json", 
+        //     }, body: JSON.stringify(data),  
+        //     });
+        //     return response.json(); 
+        // }
+
+        // sendButton.addEventListener("click", async ()=>{ 
+        //     userMessage = document.getElementById("user-input").value;
+        //     document.getElementById("user-input").value = "";
+        //     document.querySelector(".right2").style.display = "block"
+        //     document.querySelector(".right1").style.display = "none"
+        
+        //     question1.innerHTML = userMessage;
+        //     question2.innerHTML = userMessage;
+        
+        //     // Get the answer and populate it! 
+        //     let result = await postData("http://127.0.0.1:8000/bot/", {"question": userMessage})
+        //     solution.innerHTML = result.answer
+        // })
 
         userInput.addEventListener("keydown", function(event) {
             if (event.key === "Enter") {
@@ -31,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
             messageDiv.className = "message";
             messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
             chatLog.appendChild(messageDiv);
-            chatLog.scrollTop = chatLog.scrollHeight;
+            // chatLog.scrollTop = chatLog.scrollHeight;
         }
     
 
