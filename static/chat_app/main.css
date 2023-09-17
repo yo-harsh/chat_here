@@ -1,13 +1,63 @@
 * {
-    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
-  body {
-    font-size: 14px;
+
+  .container_11{
+    background-image :url("home.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+   
+    
+
+    
+    width: 100%;
+    height: 100vh;
   }
+
+  .header_1{
+    margin-right: 100px;
+  }
+
+  .list_item{
+    margin-right: 30px;
+    height: 50px;
+    width:130px;
+    background: #F8D49A;
+    border-radius: 20px;
+    font-weight: bold;
+    align-items: center;
+    text-align: center;
+
+  }
+  .chat_here{
+     margin-left: 30px;
+    height: 30px;
+    width:70px;
+    border-radius: 20%;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    top: 35px;
+    font-weight: bolder;
+    font-size: 30px;
+    font-family: sans-serif;
+    color: #F8D49A !important;
+
+  }
+  a{
+    position: relative;
+    top: 7px;
+    font-size: 25px;
+  }
+
+  
+  
+/*   
   .v11_2 {
     width: 100%;
     height: 1024px;
-    background: url("../images/v11_2.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -20,7 +70,6 @@
   .v1_7 {
     width: 100%;
     height: 1024px;
-    background: rgba(208,98,98,1);
     opacity: 1;
     position: relative;
     top: 0px;
@@ -41,7 +90,6 @@
   .v2_22 {
     width: 130px;
     height: 50px;
-    background: url("../images/v2_22.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -54,7 +102,6 @@
   .v2_23 {
     width: 130px;
     height: 50px;
-    background: url("../images/v2_23.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -185,7 +232,6 @@
   .v2_45 {
     width: 900px;
     height: 380px;
-    background: url("../images/v2_45.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -236,7 +282,6 @@
   .v3_57 {
     width: 235px;
     height: 200px;
-    background: url("v3_57.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -245,14 +290,10 @@
     top: 519px;
     left: 1008px;
     overflow: hidden;
-  }
+  } */
   
   
-  /*  */
+ 
   
-  .links{
-    text-decoration: none;
-    color: rgba(253,250,250,1);
   
-  }
   

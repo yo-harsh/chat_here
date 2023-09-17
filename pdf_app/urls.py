@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     # URL pattern for rendering the HTML page
     path('pdf/', views.render_index, name='render_index'),
-
+    path('d/', views.pdf_download, name='pdf_download'),
     # URL patterns for your views
     path('upload_pdf/', views.upload_pdf, name='upload_pdf'),
     path('chat_with_bot/', views.chat_with_bot, name='chat_with_bot'),

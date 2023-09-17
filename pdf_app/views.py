@@ -15,6 +15,11 @@ from dotenv import load_dotenv
 from .models import PdfFiles
 import os
 from django.conf import settings
+from django.http import FileResponse
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
 
 # Function to get text from a PDF file
 def get_pdf_text(pdf_docs):
@@ -133,3 +138,143 @@ def chat_with_bot(request):
             return JsonResponse({'error': 'No message provided'}, status=400)
     else:
         return HttpResponseBadRequest("Invalid request method")
+
+
+
+# 
+# 
+# 
+
+# content_list = []
+
+
+# @csrf_exempt
+# def pdf_download(request):
+#     if request.method == 'POST':
+#         pdf_data = json.loads(request.body.decode('utf-8'))
+#         pdf_text = pdf_data.get('pdf_text')
+        
+#         if pdf_text:
+# 	        # Create Bytestream buffer
+#             buf = io.BytesIO()
+#             # Create a canvas
+#             c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
+#             # Create a text object
+#             textob = c.beginText()
+#             textob.setTextOrigin(inch, inch)
+#             textob.setFont("Helvetica", 14)
+
+#             # Add some lines of text
+#             # lines = [
+#             #     "This is line 1",
+#             #     "This is line 2",
+#             #     "This is line 3",
+#             # ]
+            
+
+            
+            
+#             # Designate The Model
+#             # venues = Venue.objects.all()
+
+#             # # Create blank list
+#             # lines = []
+
+#             # for venue in venues:
+#             # 	lines.append(venue.name)
+#             # 	lines.append(venue.address)
+#             # 	lines.append(venue.zip_code)
+#             # 	lines.append(venue.phone)
+#             # 	lines.append(venue.web)
+#             # 	lines.append(venue.email_address)
+#             # 	lines.append(" ")
+
+#             # Loop
+#             # for line in lines:
+#             #     textob.textLine(line)
+
+#             print('start')
+#             textob.textLine(pdf_text)
+#             # Finish Up
+#             c.drawText(textob)
+#             c.showPage()
+#             c.save()
+#             buf.seek(0)
+#             print('done')
+#             # Return something
+#             return FileResponse(buf, as_attachment=True, filename='content.pdf')
+            
+#         else:
+#             JsonResponse({'error': 'No message provided'}, status=400)
+#     else:
+#         return HttpResponseBadRequest("Invalid request method")
+    
+# @csrf_exempt
+# def pdf_download(request):
+#     if request.method == 'GET':
+#         print('deliverd')
+#         return FileResponse(content_list[0], as_attachment=True, filename='content.pdf')
+#     else:
+#         return HttpResponseBadRequest("Invalid request method")
+
+
+# Global variable to store pdf_text
+pdf_text = None
+
+@csrf_exempt
+def pdf_download(request):
+    global pdf_text
+    
+    if request.method == 'POST':
+        pdf_data = json.loads(request.body.decode('utf-8'))
+        pdf_text = pdf_data.get('pdf_text')
+
+
+        print('got it')
+        return JsonResponse({'done': 'got message for download'})
+        
+    elif request.method == 'GET':
+        if pdf_text:
+
+            pdf_lines = pdf_text.split('\n')
+            # ■
+            print(pdf_text)
+            print('*'*5)
+            print(pdf_lines)
+            # Create Bytestream buffer
+            buf = io.BytesIO()
+            # Create a canvas
+            c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
+            # Create a text object
+            textob = c.beginText()
+            textob.setTextOrigin(inch, inch)
+            textob.setFont("Helvetica", 14)
+            
+            for line in pdf_lines:
+                textob.textLine(line)
+
+            # textob.textLine(pdf_text)
+            
+            # Finish Up
+            c.drawText(textob)
+            c.showPage()
+            c.save()
+            buf.seek(0)
+            
+            # Return the PDF response for GET requests
+            response = FileResponse(buf, as_attachment=True, filename='content.pdf')
+            
+            # Reset pdf_text after generating the PDF
+            pdf_text = None
+            
+            return response
+        else:
+            return JsonResponse({'error': 'No message not available for download'}, status=400)
+    else:
+        return HttpResponseBadRequest("Invalid request method")
+# Now, the pdf_text variable is reset to None after generating and serving the PDF for both POST and GET requests, ensuring that each PDF generated from the pdf_download view contains only the most recent text provided in the POST request.
+
+
+
+
+
