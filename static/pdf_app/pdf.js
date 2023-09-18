@@ -5,12 +5,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const messageInput = document.getElementById("messageInput");
     const sendMessageButton = document.getElementById("sendMessage");
     const userInputpdf = document.getElementById("pdf_text");
-    const sendButtonpdf = document.getElementById("sendpdfMessage");
+    const loadingSpinner = document.getElementById("loadingSpinner"); // Add this element
 
     fileUploadForm.addEventListener("submit", function (e) {
         e.preventDefault();
         const formData = new FormData();
         formData.append("file", fileInput.files[0]);
+
+        // Show loading spinner while uploading
+        loadingSpinner.style.display = "block";
 
         // Send the PDF file to the server
         fetch("http://localhost:8000/upload_pdf/", { // Update the URL as needed
@@ -22,22 +25,58 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then((response) => response.json())
             .then((data) => {
+                // Hide loading spinner after upload
+                loadingSpinner.style.display = "none";
+
                 // Display the response from the server in the chat
                 chatMessages.innerHTML += `<div><strong>User:</strong> Uploaded PDF</div>`;
             })
             .catch((error) => {
+                // Hide loading spinner on error
+                loadingSpinner.style.display = "none";
+
                 console.error("Error uploading PDF:", error);
             });
     });
 
-    sendMessageButton.addEventListener("click", function () {
-        const message = messageInput.value;
-        if (message.trim() === "") {
-            return;
+
+    sendMessageButton.addEventListener("click", function() {
+        var userMessage = messageInput.value;
+        if (userMessage.trim() !== "") {
+            displayMessage("You", userMessage);
+
+            // Get the send URL from the data attribute
+            // const sendUrl = sendButton.getAttribute("data-send-url");
+
+            messageInput.value = "";
+            // You can add AJAX code here to send the user message to the server
+                // Send user message to server using AJAX
+                sendUserMessageToServer(userMessage);
+            }
+        });
+        
+
+
+        messageInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevent the default Enter key behavior (e.g., new line)
+                sendMessageButton.click();
+            }
+        });
+
+
+        function displayMessage(sender, message) {
+            const messageDiv = document.createElement("div");
+            messageDiv.className = "message";
+            messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chatMessages.appendChild(messageDiv);
+            // chatLog.scrollTop = chatLog.scrollHeight;
         }
-        console.log(message)
-        // Send the user's message to the server
-        fetch("http://localhost:8000/chat_with_bot/", { // Update the URL as needed
+    
+
+        function sendUserMessageToServer(message) {
+            console.log(message);
+            fetch("http://localhost:8000/chat_with_bot/", { // Update the URL as needed
             method: "POST",
             body: JSON.stringify({ message }),
             headers: {
@@ -48,14 +87,41 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((response) => response.json())
             .then((data) => {
                 // Display the response from the server in the chat
-                chatMessages.innerHTML += `<div><strong>User:</strong> ${message}</div>`;
-                chatMessages.innerHTML += `<div><strong>Bot:</strong> ${data.output}</div>`;
-                messageInput.value = "";
+                console.log(data);
+                displayMessage('bot' , data.output);
             })
             .catch((error) => {
                 console.error("Error sending message:", error);
             });
-    });
+
+        }
+
+
+
+
+
+
+
+    // //     // Send the user's message to the server
+    //     fetch("http://localhost:8000/chat_with_bot/", { // Update the URL as needed
+    //         method: "POST",
+    //         body: JSON.stringify({ message }),
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "X-CSRFToken": getCookie("csrftoken"),
+    //         },
+    //     })
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             // Display the response from the server in the chat
+    //             chatMessages.innerHTML += `<div><strong>User:</strong> ${message}</div>`;
+    //             chatMessages.innerHTML += `<div><strong>Bot:</strong> ${data.output}</div>`;
+    //             messageInput.value = "";
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error sending message:", error);
+    //         });
+    // });
 
     // sendButtonpdf.addEventListener("click", function() {
     //     var pdfmessage = userInputpdf.value;
@@ -102,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (event.key === 'Enter' && !event.shiftKey) {
                 event.preventDefault(); // Prevent the default Enter key behavior (e.g., new line)
                 // sendButtonpdf.click();
-                sendUserMessageToServer(pdfmessage);
+                sendpdfToServer(pdfmessage);
 
                 // Clear the textarea after sending the message
                 userInputpdf.value = '';        
@@ -118,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         console.log(pdf_text);
-    function sendUserMessageToServer(pdf_text) {
+    function sendpdfToServer(pdf_text) {
         console.log(pdf_text);
         fetch("http://localhost:8000/d/", {
             method: "POST",

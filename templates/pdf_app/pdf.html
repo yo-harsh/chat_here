@@ -1,50 +1,5 @@
 {% load static %}
 
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>PDF Chat Bot</title>
-    <link rel="stylesheet" href="{% static 'pdf_app/pdf.css' %}">
-</head>
-<body>
-    <h1>PDF Chat Bot</h1> -->
-
-<!-- File Upload Form -->
-<!-- <form id="fileUploadForm" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" id="fileInput" name="file" accept=".pdf" required>
-        <button type="submit">Upload PDF</button>
-    </form>
-    
-    <div id="pdf_content">
-        <div id="pdf"></div>
-        <div style="margin: 3rem auto; width: 16rem">
-            <textarea
-                rows="5"
-                id="pdf_text"
-                style="border: 1px solid #cbd5e0; padding: 0.5rem; width: 100%"
-                placeholder="Shift + Enter for a new line"
-            ></textarea>
-        </div> -->
-<!-- <button id="sendpdfMessage">Send</button> -->
-<!-- 
-        <a href="http://127.0.0.1:8000/d/">DOWNLOAD AS PDF</a>
-    </div> -->
-
-<!-- Chat Interface -->
-<!-- <div id="chatContainer">
-        <div id="chatMessages"></div>
-        <input type="text" id="messageInput" placeholder="Ask a question...">
-        <button id="sendMessage">Send</button>
-    </div> -->
-
-<!-- JavaScript -->
-<!-- <script src="{% static 'pdf_app/pdf.js' %}"></script>
-</body>
-</html> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,14 +7,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'pdf_app/main_pdf.css' %}">
+    <link rel="stylesheet" href="{% static 'chat_app/main_pdf.css' %}">
     <link rel="shortcut icon" href="https://chat.openai.com/favicon.ico" type="image/x-icon">
     <style>
         .right2 {
             display: none;
         }
     </style>
-    <title>CHAT_HERE</title>
+    <title>New chat</title>
 </head>
 
 <body class="bg-chatblack-50">
@@ -73,7 +28,7 @@
                 style="width:250px !important; height: 50px !important; position: relative; bottom: 20px;"
                 placeholder="Enter your key" type="password" name="text">
 
-            <button style="position: relative; bottom:12px;"
+            <button
                 class="w-[100%] py-2 m-1 px-10 space-x-2 border-white border rounded-md flex mx-4 justify-start items-center hover:opacity-70">
                 <span class="submit_button">Submit</span>
                 <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
@@ -83,22 +38,6 @@
                     <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                 </svg>
             </button>
-            <form id="fileUploadForm" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="file" class="bg-gray-600 rounded-md" style="position: absolute; bottom:80px; width: 240px;"
-                    id="fileInput" name="file" accept=".pdf" required>
-                <button style="position: absolute; bottom:30px;"
-                    class="w-[100%] py-2 m-1 px-10 space-x-2 border-white border rounded-md flex mx-4 justify-start items-center hover:opacity-70">
-                    <span class="submit_button">Submit</span>
-                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
-                        style="margin-right: 40px !important;" stroke-linecap="round" stroke-linejoin="round"
-                        class="h-4 w-4 mr-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="22" y1="2" x2="11" y2="13"></line>
-                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                    </svg>
-                </button>
-            </form>
-
             <div class="chats flex flex-col justify-center items-center space-y-2">
 
 
@@ -120,7 +59,7 @@
 
 
         <div class="right1 w-10/12 flex justify-center items-center flex-col">
-            <div class="text-center w-full text-4xl font-bold my-10" style="position: relative; top:160px;">
+            <div class="text-center w-full text-4xl font-bold my-10" style="position: relative; top:110px;">
                 Chat_here
             </div>
             <div class="itemsrow flex py-4 w-[43vw] justify-around">
@@ -194,22 +133,16 @@
 
             <div class="input w-full text-center my-24 flex items-center justify-center flex-col">
                 <div class="chat-container">
-                    <!-- Loading spinner -->
-                    <div id="loadingSpinner" style="display: none; text-align: center;">
-                        <div class="spinner"></div>
-                        <p>Loading...</p>
-                    </div>
-                    
-                    <!-- Chat log -->
-                    <div class="chat-log w-full p-4 bg-gray-600 rounded-md" id="chatMessages" style="width: 830px !important;">
+                    <div class="chat-log w-full p-4 bg-gray-600 rounded-md" id="chat-log"
+                        style="width: 830px !important; ">
                         <!-- Chat messages will be displayed here -->
                     </div>
                 </div>
                 <div class="buttonsvg pl-16 w-[50vw] flex">
                     <input class="w-full p-4 bg-gray-600 rounded-md" placeholder="Send a Message" type="text"
-                        name="text" id="messageInput">
+                        name="text" id="user-input">
 
-                    <button id="sendMessage" class="relative -left-20 pl-10">
+                    <button id="send-button" class="relative -left-20 pl-10">
                         <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
                             stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-1" height="1em" width="1em"
                             xmlns="http://www.w3.org/2000/svg">
@@ -223,23 +156,16 @@
                     information about people, places, or facts.<a class="underline"
                         href="https://help.openai.com/en/articles/6825453-chatgpt-release-notes"> ChatGPT Mar 23
                         Version</a></div>
-                <div class="text-center w-full text-4xl font-bold" style="position: relative; bottom:30px;">
+                <div class="text-center w-full text-4xl font-bold" style="position: relative; bottom:70px;">
                     Content Gen.
                 </div>
-                <a href="http://127.0.0.1:8000/d/"><svg xmlns="http://www.w3.org/2000/svg" height="1.75em"
-                        style="z-index: 100; position:relative; left:390px; bottom:55px; color:green;"
-                        viewBox="0 0 512 512">
-                        <style>
-                            svg {
-                                fill: #3a9188
-                            }
-                        </style>
-                        <path
-                            d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z" />
-                    </svg></a>
+               <a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="1em" style="z-index: 100; position:relative; bottom:70px; color:green;"
+                    viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <path
+                        d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z" />
+                </svg></a> 
 
-
-                <textarea class="chat-log w-full p-4 bg-gray-600 rounded-md" id="pdf_text"
+                <textarea class="chat-log w-full p-4 bg-gray-600 rounded-md" id="chat-log"
                     style="width: 830px !important; position:relative; bottom:50px; ">
 
                         </textarea>
@@ -288,8 +214,37 @@
         </div>
 
     </div>
-    <!-- JavaScript -->
-    <script src="{% static 'pdf_app/pdf.js' %}"></script>
+    <script src="{% static 'chat_app/chat.js' %}"></script>
 </body>
 
 </html>
+
+
+
+
+
+<!-- // function sendUserMessageToServer(message) {
+    //     console.log(message);
+    //     fetch("http://localhost:8000/send_message/", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "X-CSRFToken": getCookie("csrftoken")
+    //         },
+    //         body: JSON.stringify({
+    //             "message": message
+    //         })
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log(data);
+    //         console.log('hhhhh');
+    //         console.log(data.response);
+    //         displayMessage('bot' , data.response);
+    //         // Handle the response from the server if needed
+    //         // For example, you can display the bot's response
+    //     })
+    //     .catch(error => {
+    //         console.error("Error:", error);
+    //     });
+    // } -->
