@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const chatLog = document.getElementById("chat-log");
     const userInput = document.getElementById("user-input");
+    const key = document.getElementById("keyInput");
     const sendButton = document.getElementById("send-button");
 
     sendButton.addEventListener("click", function() {
@@ -14,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
             userInput.value = "";
             // You can add AJAX code here to send the user message to the server
                 // Send user message to server using AJAX
-                sendUserMessageToServer(userMessage);
+                sendUserMessageToServer(userMessage,key.value);
             }
         });
 
@@ -60,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
 
 
-        function sendUserMessageToServer(message) {
+        function sendUserMessageToServer(message,key) {
             console.log(message);
             fetch("http://localhost:8000/message/", {
                 method: "POST",
@@ -69,7 +70,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     "X-CSRFToken": getCookie("csrftoken")
                 },
                 body: JSON.stringify({
-                    "messagee": message
+                    "messagee": message,
+                    'key':key
                     
                 
                 })

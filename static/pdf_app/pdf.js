@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const fileUploadForm = document.getElementById("fileUploadForm");
     const fileInput = document.getElementById("fileInput");
+    const apiKey = document.getElementById('keyInput');
     const chatMessages = document.getElementById("chatMessages");
     const messageInput = document.getElementById("messageInput");
     const sendMessageButton = document.getElementById("sendMessage");
@@ -11,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
         const formData = new FormData();
         formData.append("file", fileInput.files[0]);
+        formData.append("key", apiKey.value); // Append the API key
 
         // Show loading spinner while uploading
         loadingSpinner.style.display = "block";

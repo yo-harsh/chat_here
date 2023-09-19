@@ -65,15 +65,15 @@
 <body class="bg-chatblack-50">
     <div class="flex h-[100vh] text-white">
         <div class="left bg-[#202123] w-2/12 side_bar" style=" width: 250px !important">
-
-            <div class="text-center w-full text-4x1 font-bold my-10 " style="font-size:23px !important;">
+            <form id="fileUploadForm" method="POST" enctype="multipart/form-data">
+            <div id="key" class="text-center w-full text-4x1 font-bold my-10 " style="font-size:23px !important;">
                 OPENAI API KEY
             </div>
-            <input class="w-full p-4 bg-gray-600 rounded-md"
+            <input id="keyInput" class="w-full p-4 bg-gray-600 rounded-md"
                 style="width:250px !important; height: 50px !important; position: relative; bottom: 20px;"
-                placeholder="Enter your key" type="password" name="text">
+                placeholder="Enter your key" type="password" name="key">
 
-            <button style="position: relative; bottom:12px;"
+            <button style="position: relative; bottom:12px; z-index: -1;"
                 class="w-[100%] py-2 m-1 px-10 space-x-2 border-white border rounded-md flex mx-4 justify-start items-center hover:opacity-70">
                 <span class="submit_button">Submit</span>
                 <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
@@ -83,7 +83,7 @@
                     <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                 </svg>
             </button>
-            <form id="fileUploadForm" method="POST" enctype="multipart/form-data">
+            
                 {% csrf_token %}
                 <input type="file" class="bg-gray-600 rounded-md" style="position: absolute; bottom:80px; width: 240px;"
                     id="fileInput" name="file" accept=".pdf" required>

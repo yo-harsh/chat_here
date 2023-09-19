@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 import json
 from django.http import JsonResponse, HttpResponseBadRequest
 from PyPDF2 import PdfReader
@@ -11,7 +10,6 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from django.views.decorators.csrf import csrf_exempt
 import threading  # Import threading to ensure thread-safety
-from dotenv import load_dotenv
 from .models import PdfFiles
 import os
 from django.conf import settings
@@ -41,14 +39,14 @@ def get_text_chunks(text):
     return chunks
 
 # Function to create a vector database
-def get_vectordb(chunks):
-    embeddings = OpenAIEmbeddings()
+def get_vectordb(chunks,key):
+    embeddings = OpenAIEmbeddings(openai_api_key=key)
     vectordb = FAISS.from_texts(texts=chunks, embedding=embeddings)
     return vectordb
 
 # Function to set up conversation memory
-def memorydb(vectordb):
-    llm = ChatOpenAI()
+def memorydb(vectordb,key):
+    llm = ChatOpenAI(openai_api_key=key)
     memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
     convo_chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=vectordb.as_retriever(), memory=memory)
     return convo_chain
@@ -68,16 +66,24 @@ file_list = []
 
 @csrf_exempt
 def upload_pdf(request):
+    print(1)
+    key1 = request.POST.get('key')
+    print(key1)
     global global_vector_db, global_convo_chain
     if request.method == 'POST':
+        
         obj = request.FILES['file']
         if obj:
             try:
-                load_dotenv()
+                # load_dotenv()
+                print(key1)
+                OPENAI_API_KEY = key1
+                print(OPENAI_API_KEY)
                 doc = PdfFiles.objects.create(file=obj)
                 doc.save()
                 print('saved')
                 file_list.append(doc.file.name)
+                print(file_list[0])
                 print('start')
 
                 # Update the global variables when a new PDF is uploaded
@@ -86,9 +92,9 @@ def upload_pdf(request):
                 print(0)
                 chunks = get_text_chunks(raw_text)
                 print(1)
-                vector = get_vectordb(chunks)
+                vector = get_vectordb(chunks,OPENAI_API_KEY)
                 print(2)
-                convo = memorydb(vector)
+                convo = memorydb(vector,OPENAI_API_KEY)
                 print(3)
 
                 # Lock the global variables while updating
@@ -117,7 +123,7 @@ def chat_with_bot(request):
         
         if msg:
             try:
-                load_dotenv()
+                # load_dotenv()
 
                 
 
@@ -240,7 +246,7 @@ def pdf_download(request):
             # ■
             print(pdf_text)
             print('*'*5)
-            print(pdf_lines)
+            # print(pdf_lines)
             # Create Bytestream buffer
             buf = io.BytesIO()
             # Create a canvas
@@ -251,7 +257,11 @@ def pdf_download(request):
             textob.setFont("Helvetica", 14)
             
             for line in pdf_lines:
-                textob.textLine(line)
+                # Manually split long lines into smaller chunks
+                chunk_size = 60 # Adjust this value as needed
+                for i in range(0, len(line), chunk_size):
+                    chunk = line[i:i + chunk_size]
+                    textob.textLines(chunk)
 
             # textob.textLine(pdf_text)
             
