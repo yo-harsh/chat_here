@@ -1,3 +1,10 @@
+<!-- 1 #B8E1DD
+     2 #3A9188
+     3 #044A42
+     4 #062925
+     5 #F8D49A
+ -->
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -14,20 +21,20 @@
             display: none;
         }
     </style>
-    <title>New chat</title>
+    <title>Chat_Here</title>
 </head>
 
 <body class="bg-chatblack-50">
-    <div class="flex h-[100vh] text-white">
-        <div class="left bg-[#202123] w-2/12 side_bar" style=" width: 250px !important">
-                <div  class="text-center w-full text-4x1 font-bold my-10 " style="font-size:23px !important;">
-                    OPENAI API KEY
-                </div>
-                <input id="keyInput" class="w-full p-4 bg-gray-600 rounded-md"
-                    style="width:250px !important; height: 50px !important; position: relative; bottom: 20px;"
-                    placeholder="Enter your key" type="password" name="key">
+    <div class="flex h-[100vh] text-white" style="background:#0E2D23;">
+        <div class="left  w-2/12 side_bar" style=" width: 250px !important; background: #041b19 !important;">
+            <div class="text-center w-full text-4x1 font-bold my-10 " style="font-size:23px !important; color:#F8D49A !important;">
+                OPENAI API KEY
+            </div>
+            <input id="keyInput" class="w-full p-4  rounded-md"
+                style="width:250px !important; height: 50px !important; position: relative; bottom: 20px; background-color: #fae3bd;  color:black !important;"
+                placeholder="Enter your key" type="password" name="key">
 
-                <!-- <button
+            <!-- <button
                     class="w-[100%] py-2 m-1 px-10 space-x-2 border-white border rounded-md flex mx-4 justify-start items-center hover:opacity-70">
                     <span class="submit_button">Submit</span>
                     <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
@@ -38,7 +45,7 @@
                     </svg>
                 </button> -->
         </div>
-           
+
         <div class="chats flex flex-col justify-center items-center space-y-2">
 
 
@@ -58,9 +65,9 @@
         </div>
 
 
-        <div class="right1 w-10/12 flex justify-center items-center flex-col">
-            <div class="text-center w-full text-4xl font-bold my-10" style="position: relative; top:110px;">
-                Chat_here
+        <div class="right1 w-10/12 flex justify-center items-center flex-col" style="background:#0E2D23 !important;">
+            <div class="text-center w-full text-4xl font-bold my-10" style="position: relative; top:150px; color:#F8D49A;">
+                Chat_here &lt;/&gt;
             </div>
             <div class="itemsrow flex py-4 w-[43vw] justify-around">
                 <!-- <div class="examples flex flex-col justify-center items-center">
@@ -133,19 +140,23 @@
 
             <div class="input w-full text-center my-24 flex items-center justify-center flex-col">
                 <div class="chat-container">
-                    <div class="chat-log w-full p-4 bg-gray-600 rounded-md" id="chat-log" style="width: 830px !important; 
+                    <div class="chat-log w-full   rounded-md" id="chat-log" style="width: 1100px !important; 
                         white-space: pre-line;
                         white-space: pre-wrap;
                         overflow-x: hidden;
                         overflow-y: auto;
                         word-wrap: break-word;
+                        height:700px;
+                        font-size: 20px !important;
+                        background-color: #7DBCB6;
+                        color: black !important;
                         ">
                         <!-- Chat messages will be displayed here -->
                     </div>
                 </div>
                 <div class="buttonsvg pl-16 w-[50vw] flex">
-                    <input class="w-full p-4 bg-gray-600 rounded-md" placeholder="Send a Message" type="text"
-                        name="text" id="user-input">
+                    <textarea class="w-full p-4  rounded-md" placeholder="Send a Message" type="text"
+                        name="text" id="user-input" style="background-color: #7DBCB6; resize: none; color:black;"></textarea>
 
                     <button id="send-button" class="relative -left-20 pl-10">
                         <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
@@ -184,26 +195,7 @@
                 </div>
             </div>
 
-            <div class="input pt-80 w-full text-center mt-52 flex items-center justify-center flex-col">
-                <div class="buttonsvg pl-16 w-[50vw] flex">
-                    <input class="w-full p-4 bg-gray-600 rounded-md" placeholder="Send a Message" type="text"
-                        name="text" id="">
-
-                    <button class="relative -left-20 pl-10">
-                        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
-                            stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-1" height="1em" width="1em"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <line x1="22" y1="2" x2="11" y2="13"></line>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                        </svg>
-                    </button>
-                </div>
-                <div class="text-xs py-2 pr-10 opacity-70">Free Research Preview. ChatGPT may produce inaccurate
-                    information about people, places, or facts.<a class="underline"
-                        href="https://help.openai.com/en/articles/6825453-chatgpt-release-notes"> ChatGPT Mar 23
-                        Version</a></div>
-            </div>
-
+         
         </div>
 
     </div>

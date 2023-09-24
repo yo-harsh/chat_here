@@ -83,11 +83,11 @@ def upload_pdf(request):
                 doc.save()
                 print('saved')
                 file_list.append(doc.file.name)
-                print(file_list[0])
+                print(file_list[-1])
                 print('start')
 
                 # Update the global variables when a new PDF is uploaded
-                pdf_path = os.path.join(settings.MEDIA_ROOT, file_list[0])
+                pdf_path = os.path.join(settings.MEDIA_ROOT, file_list[-1])
                 raw_text = get_pdf_text(pdf_path)
                 print(0)
                 chunks = get_text_chunks(raw_text)

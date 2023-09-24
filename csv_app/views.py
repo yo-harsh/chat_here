@@ -1,6 +1,6 @@
 import json
 import os
-import tempfile
+import time
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -58,7 +58,7 @@ def csv_agent(request):
                 
                 
                 # Assuming file_list[0] contains the relative path to the file
-                relative_path = file_list[0]
+                relative_path = file_list[-1]
 
 
                 print(relative_path)
@@ -72,9 +72,11 @@ def csv_agent(request):
 
 
                 # Create the CSV agent with the CSV content
-                agent = create_csv_agent(llm, absolute_path)
+                agent = create_csv_agent(llm, absolute_path,verbose=True)
                 print('end')
                 output = agent.run(msg)
+                print('output')
+                time.sleep(23)
                 return JsonResponse({'output': output})
             except Exception as e:
                 return JsonResponse({'error': str(e)}, status=400)

@@ -40,7 +40,7 @@ def api_message(request):
                 prompt = PromptTemplate(
                 input_variables=["request"],
                 template='''prompt:
-                    ->  give a user detail and sincere response to their question after doing critical thinking: 
+                    ->  give a user detail and sincere response to their question after doing critical thinking:
                     I want you to act as a wild life guide, your role is to respond to user query and response with full detail explanation about all types of animals marine and ancient or extinct wild life according to what user ask you. include all myth and facts and also example: height, weight, etc all info about user question.  follow these steps:
                     1. do critical thinking.
                     2. whenever you don't understand ask question if needed.

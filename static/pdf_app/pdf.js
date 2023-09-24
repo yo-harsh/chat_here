@@ -67,11 +67,31 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
+       
         function displayMessage(sender, message) {
             const messageDiv = document.createElement("div");
-            messageDiv.className = "message";
+            // messageDiv.style.paddingTop = '20px'
+            
+            console.log(sender);
+            if(sender == 'You'){
+                messageDiv.className = "message_you";
+                messageDiv.style.backgroundColor = "#69B4AD"; 
+                
+            }
+            else if(sender == 'bot'){
+                messageDiv.className = "message_bot";
+                messageDiv.style.borderBottom = "1px solid black";
+                messageDiv.style.marginBottom = "20px";
+
+                
+            }
+            else{
+            messageDiv.className = "else_section";
+            }
+            messageDiv.style.fontSize = "20px";
             messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
             chatMessages.appendChild(messageDiv);
+
             // chatLog.scrollTop = chatLog.scrollHeight;
         }
     
