@@ -84,4 +84,3 @@ def csv_agent(request):
             return JsonResponse({'error': 'No message provided'}, status=400)
     else:
         return HttpResponseBadRequest("Invalid request method")
-
