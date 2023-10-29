@@ -1,0 +1,13 @@
+dataclasses-json==0.5.14
+Django==4.2.5
+django-cors-headers==4.2.0
+faiss-cpu==1.7.4
+ffmpeg==1.4
+langchain==0.0.285
+openai==0.28.0
+pydantic==2.3.0
+pydantic_core==2.6.3
+pydub==0.25.1
+PyPDF2==3.0.1
+python-dotenv==1.0.0
+tiktoken==0.4.0
