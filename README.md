@@ -36,14 +36,57 @@ Follow these steps to set up and run the project on your local machine:
 ```bash
 git clone https://github.com/your-username/your-repo.git
 cd your-repo
+```
+
+1. **Create a virtual environment and activate it:**
+
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows, use: venv\Scripts\activate
+    ```
+
+2. **Install the project dependencies from the `requirements.txt` file:**
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Usage
+
+1. **Migrate the database and create a superuser for the Django admin panel:**
+
+    ```bash
+    python manage.py migrate
+    python manage.py createsuperuser
+    ```
+
+2. **Start the Django development server:**
+
+    ```bash
+    python manage.py runserver
+    ```
+
+3. **Access the web application by opening a web browser and navigating to [http://127.0.0.1:8000/](http://127.0.0.1:8000/). You can use the Wildlife Guide Chatbot and PDF Analyzer via the user interface.**
+
+## Dependencies
+
+The project relies on several Python libraries, and you can find them listed in the `requirements.txt` file. Here are some of the key dependencies:
+
+- `dataclasses-json` for data serialization and deserialization.
+- `Django` as the web framework.
+- `openai` for integrating with the OpenAI language model.
+- `langchain` for document processing and analysis.
+- Others for various utilities and functionality.
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+1. **Fork the repository.**
+2. **Create a new branch for your feature or fix.**
+3. **Make your changes.**
+4. **Create a pull request with a clear description of your changes.**
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+This project is licensed under the MIT License. You are free to use, modify, and distribute it as you see fit.
+
+Enjoy using the Wildlife Guide Chatbot and PDF Analyzer! If you have any questions or encounter issues, please feel free to reach out or open an issue on the GitHub repository.
