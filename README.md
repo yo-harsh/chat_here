@@ -17,7 +17,6 @@ Welcome to the README for the Chat_Here</> which is a Wildlife Guide Chatbot and
 The Wildlife Guide Chatbot and PDF Analyzer is a web application that combines the power of language models and document analysis to provide two main functionalities:
 
 1. **Wildlife Guide Chatbot**: Users can interact with a chatbot that provides information about various animals. Simply ask a question about an animal, and the chatbot will provide detailed information about it.
-
 2. **PDF Analyzer**: Users can upload PDF documents and ask questions about the content. The application uses AI to extract and analyze text from the PDF, making it easy to get answers to specific questions related to the document.
 
 ## Features
@@ -40,32 +39,29 @@ cd your-repo
 
 1. **Create a virtual environment and activate it:**
 
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows, use: venv\Scripts\activate
-    ```
-
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows, use: venv\Scripts\activate
+   ```
 2. **Install the project dependencies from the `requirements.txt` file:**
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 ## Usage
 
 1. **Migrate the database and create a superuser for the Django admin panel:**
 
-    ```bash
-    python manage.py migrate
-    python manage.py createsuperuser
-    ```
-
+   ```bash
+   python manage.py migrate
+   python manage.py createsuperuser
+   ```
 2. **Start the Django development server:**
 
-    ```bash
-    python manage.py runserver
-    ```
-
+   ```bash
+   python manage.py runserver
+   ```
 3. **Access the web application by opening a web browser and navigating to [http://127.0.0.1:8000/](http://127.0.0.1:8000/). You can use the Wildlife Guide Chatbot and PDF Analyzer via the user interface.**
 
 ## Dependencies
